@@ -42,14 +42,14 @@ If you have admin privileges, in Ubuntu you can install `tmux` using the `apt` p
   - At this point you've probably noticed a super nice status bar in the lower part of the terminal,  showing some information about the current status of the `tmux` and yout machine machine.
   - Now let's dive in. It turns that each tmux `session` is divided into `windows`, which you can roughly think of  as browser tabs). `windows` can firther be divided in `panes`. To create and manipulate these divisions,  I've added  the following shortcuts.
 
-  | Shortcut              | Action                         |
-  | --------------------- | ------------------------------ |
-  | ctrl + F2             | Create a new window            |
-  | ctrl + F3,  ctrl + F4 | Move to left, right window     |
-  | ctrl + F6             | Detach from current session    |
-  | ctrl + F8             | Rename current session         |
-  | ctrl + \              | Split window/pane vertically   |
-  | ctrl + -              | Split window/pane horizontally |
+  | Shortcut              | Action                                 |
+  | --------------------- | -------------------------------------- |
+  | ctrl + F2             | Create a new window                    |
+  | ctrl + F3,  ctrl + F4 | Move to left, right window             |
+  | ctrl + F6             | Detach from current session            |
+  | ctrl + F8             | Rename current session                 |
+  | ctrl + \              | Split current window/pane vertically   |
+  | ctrl + -              | Split current window/pane horizontally |
 
   - To make navigation thoughout `windows` and `panes` more natural, `tmux` features  mouse support for scrolling, `window` selection, `pane` resizing and for copy-pasting content. The config file includes settings to enable all these features. To make sure the mouse support works in Windows with Cygwin, open the MinTTY options dialog (right click on the titlebar) and go to the “Mouse” category to ensure that “Default click target” is set to application. For MacOs, I strongly advice not to use the default Terminal application, since neither F-key presses nor mouse actions are correctly handled.
 
@@ -58,30 +58,32 @@ If you have admin privileges, in Ubuntu you can install `tmux` using the `apt` p
 
 ## SSH 
 
-SSH, or Secure Shell, is a remote administration protocol that allows users to control and  modify their remote servers over the Internet. The service was created as a secure replacement for older unencrypted protocols such as Telnet,  to ensure that all communication to and from the remote server happens in an encrypted manner. The SSH command consists of mainly 3 distinct parts:
+SSH, or Secure Shell, is a remote administration protocol that allows users to control and  modify remote machines over the Internet. The service was created as a secure replacement for older unencrypted protocols such as Telnet,  to ensure that all communication to and from the remote server happens in an encrypted manner. 
+
+Therefore, before you start using SSH, you need to create credentials that make connections secure. If you haven't created your own keys, run the command `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"` to create them. The resulting credentials will be stored by default on the `/home/<username>/.ssh` folder.
+
+## Using SSH
+
+The SSH command consists of mainly 3 distinct parts: 
 
 `ssh <user>@<host>`
 
-The SSH command tells your system that you want to open an encrypted connection as using  account `<user>` , to a machine located in the `<host>` address, in the form of an IP address or a domain name. 
+This command tells your system that you want to open an encrypted connection using account `<user>` , to a machine located in the `<host>` address. This address should be given in the form of an IP address or a domain name. There are mainly two ways in which you can authenticate in a remote machine. The first not-so-safe-one, is to simply use a password when connecting, which will be requested after you run the `ssh` command. For example, try running `ssh guest@nlp-tutorial.duckdns.org`.
 
-### Configuring SSH
+Now proceed to open the file `/home/.ssh/config` with your favorite text editor, and let's create our first alias by adding the following to the file.
 
-- To start, you need to create credentials that make connections secure. If you haven't created your own keys, run the command `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"` to create them. The resulting credentials will be stored by default on the `/home/<username>/.ssh` folder.
+```
+Host nlp-tutorial 
+user guest
+HostName nlp-tutorial.duckdns.org 
+Port 22
+```
 
-- Open the file `/home/.ssh/config` with your favorite text editor and add the following information.
+What we have done is create a sort of alias for a the command we used above, so we can just write `ssh tutorial` to achieve the same. 
 
-  ```
-  Host nlp-tutorial 
-  user guest
-  HostName nlp-tutorial.duckdns.org 
-  Port 22
-  ```
+ 
 
-  What we have done is create a sort of alias for a the command `ssh guest@nlp-tutorial.duckdns.org --port 22`, so we can just write `ssh tutorial` to achieve the same. 
-
-   
-
-### SSH Port Forwarding A.K.A. SSH tunneling A.K.A. good bless SSH
+### SSH Port Forwarding A.K.A. SSH tunneling A.K.A. () SSH
 
 Now, SSH has provided us with a way (). But what if I told you that this is just the beginning? So, as SSH is a communication protocol it can be used to wrap some other (potentially not protected) communication protocol and to make it secure. This is used for countless of () including secure file transfers, () and so many other.
 
