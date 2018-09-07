@@ -36,7 +36,7 @@ Let's start by opening our terminal and running the `tmux` command with no addit
 
 OK, `tmux` is cool, but it is certainly not so cool to learn all those additional little commands to move around, right? To make this easier I've created a series of shortcuts that are summarized in the `.tmux.conf` file, a plain text file storing the settings for our `tmux` . 
 
-To try it out, download this [config  file](https://gist.githubusercontent.com/epochx/bb980b78cfafde90457d7202ab90502a/raw/7d6083f9c18a5b57fd10c2f871df6f4a401b1a1d/.mytmux.conf) into your home directory, usually `/home/<username>` in linux distros, `/Users/<username>` in macOS and `\Users\<username>` in Windows\. If you already have a tmux config file there, I'd recommend you keep a backup of that one. As I said earlier, this file introduces a number of shortcuts and other features that will hopfeully make your life easier when it comes to using `tmux`.  
+To try it out, download this [config  file](https://raw.githubusercontent.com/epochx/dev-utils/master/.mytmux.conf) into your home directory, usually `/home/<username>` in linux distros, `/Users/<username>` in macOS and `\Users\<username>` in Windows\. If you already have a tmux config file there, I'd recommend you keep a backup of that one. As I said earlier, this file introduces a number of shortcuts and other features that will hopfeully make your life easier when it comes to using `tmux`.  
 
 - Open a terminal window, go to your home directory and run `mv ~/.mytmux.conf ~/.tmux.conf `
 
@@ -92,7 +92,7 @@ A special use case for us in this tutorial is that SSH ebables us to secure conn
 
 SSH is such a flexible tool, with such many options, that creating tunnels can be overwhelming sometimes. To ease this, I've created a small script to get our Jupyter Notebook tunnels done fast. Besides having SSH aliases for your target machine, the only assumption for this hack to work is that the Jupyter Notebook Server on your remote is running on port 9999. This you can easily achieve by runnning `jupyter notebook --port 9999`. We will map this port in the remote machine to our local 8080 port, so the connection does not collide with a local Jupyter instance that by default may be running in port 8888. 
 
-To activate the hack, all you'll have to do is copy the contents of this file at the end  of your `/home/<username>/.bashrc` file if you are using Linux or Cygwin, and the `/Users/<username>/.bash_profile`. After that run `source ~/.bashrc`.
+To activate the hack, all you'll have to do is copy the contents of the [ssh_utils](https://raw.githubusercontent.com/epochx/dev-utils/master/ssh_utils.sh) file at the end  of your `/home/<username>/.bashrc` file if you are using Linux or Cygwin, and the `/Users/<username>/.bash_profile`. After that run `source ~/.bashrc`.
 
 - Connect to your server, and launch Jupyter with the command `jupyter notebook --port 9999` 
 - use `start-remote-notebook <alias>` to connect to the server and point it to your local 8080 port. You can now open your browser, go to [http://localhost:8080] and start working remotely.
@@ -109,7 +109,7 @@ When using some Deep Learning libraries on machines with multiple GPU -I'm looki
 
 To use these features:
 
-- Again, paste the contents of the `ssh_utils.sh` inside your `.bashrc` or `.bash_profile` and run `source ~/.bashrc`.
+- Again, paste the contents of the [gpu_utils.sh](https://raw.githubusercontent.com/epochx/dev-utils/master/gpu_utils.sh)  file at the end of your `.bashrc` or `.bash_profile` and run `source ~/.bashrc`.
 - Download the `gpustat.py` file in your home folder, and call `gpustat` to launch a gpu monitor that includes process id and user name identification.
 - You may use the command `get-visible-gpus` to obtain a list of the GPU devices that are visible to any program in that session.
 - Use `set-visible-gpus 1 2 3 ` 
